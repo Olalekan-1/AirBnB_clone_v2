@@ -154,8 +154,6 @@ class HBNBCommand(cmd.Cmd):
                     p_value = int(value)
 
                 elif not (value.startswith('"') and value.endswith('"')):
-                    print('** No Value set for attribute {}.\n'
-                          '** Syntax : attribute="value"'.format(parameter))
                     continue
 
                 else:
@@ -173,7 +171,6 @@ class HBNBCommand(cmd.Cmd):
                 # new_instance.save()
 
             except Exception as mess:
-                print(mess)
                 continue
         new_instance.save()
         storage.save()
