@@ -51,7 +51,7 @@ class DBStorage:
         engine = create_engine(
                 "mysql+mysqldb://{}:{}@{}:{}/{}".format(
                     db_user, db_password, db_host, port, db_name,
-                pool_pre_ping=True)
+                pool_pre_ping=True))
 
         if test_env:
             db = engine.cursor()
@@ -83,7 +83,7 @@ class DBStorage:
         # If cls is None, query all types of objects
         result_dict = {}
 
-         if cls:
+        if cls:
             if type(cls) is str:
                 cls = eval(cls)
             query = self.__session.query(cls)

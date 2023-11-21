@@ -10,6 +10,9 @@ from sqlalchemy import String, Integer, Column, DateTime
 
 Base = declarative_base()
 
+db = os.getenv("HBNB_TYPE_STORAGE") == 'db'
+
+
 class BaseModel:
     """A base class for all hbnb models"""
 
