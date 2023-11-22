@@ -143,31 +143,29 @@ class HBNBCommand(cmd.Cmd):
 
         for parameter in content[1:]:
             try:
-                p_value = ""
-                s_parameter = parameter.split('=', 1)
-                value = s_parameter[1]
 
-                if '.' in value:
-                    p_value = float(value)
+                s_parameter, value = parameter.split('=', 1)
 
-                elif value.isdigit():
-                    p_value = int(value)
-
-                elif not (value.startswith('"') and value.endswith('"')):
+                if not s_parameter or not value:
+                    print("no value or parameter")
                     continue
 
-                else:
+                if '.' in value:
+                    setattr(new_instance, s_parameter, float(value))
+
+                elif value.isdigit():
+                    setattr(new_instance, s_parameter, int(value))
+
+                elif (value.startswith('"') and value.endswith('"')):
                     str_content = value[1:-1]
                     if '"' in str_content:
                         pat = re.compile(r'(?<!\\)\\\"')
                         if not (pat.findall(str_content)):
                             continue
-                    if "_" in str_content:
-                        p_value = str_content.replace("_", " ")
-                    else:
-                        p_value = str_content
-
-                setattr(new_instance, s_parameter[0], p_value)
+                    setattr(new_instance, s_parameter,
+                            str_content.replace("_", " "))
+                else:
+                    continue
                 # new_instance.save()
 
             except Exception as mess:
