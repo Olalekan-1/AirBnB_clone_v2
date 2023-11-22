@@ -120,10 +120,14 @@ class HBNBCommand(cmd.Cmd):
         # Define a regular expression pattern to match spaces
         # within double quotes
         # pattern = re.compile(r'(?<=")([^"\\]|\\.)*?(?=")')
+        # pattern = re.compile(r'"([^"\\]|\\.)*?"')
         pattern = re.compile(r'="([^"]*)"')
+        # pattern = re.compile(r'"([^"\\]|\\.)*?"')
+        # pattern = re.compile(r'"([^"\\]*(?:\\.[^"\\]*)*)"')
 
         # Replace spaces within double quotes with underscores
-        result = pattern.sub(lambda match: match.group(0).replace(' ', '_'),
+        result = pattern.sub(lambda match:
+                             match.group(0).replace(' ', '_'),
                              input_string)
 
         return result
@@ -147,7 +151,7 @@ class HBNBCommand(cmd.Cmd):
                 s_parameter, value = parameter.split('=', 1)
 
                 if not s_parameter or not value:
-                    print("no value or parameter")
+                    # print("no value or parameter")
                     continue
 
                 if '.' in value:
@@ -162,13 +166,14 @@ class HBNBCommand(cmd.Cmd):
                         pat = re.compile(r'(?<!\\)\\\"')
                         if not (pat.findall(str_content)):
                             continue
+                    str_content = str_content.replace('\\"', '"')
                     setattr(new_instance, s_parameter,
                             str_content.replace("_", " "))
                 else:
                     continue
-                # new_instance.save()
 
             except Exception as mess:
+                # print(mess)
                 continue
         new_instance.save()
         storage.save()
