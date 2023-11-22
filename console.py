@@ -151,7 +151,7 @@ class HBNBCommand(cmd.Cmd):
                 s_parameter, value = parameter.split('=', 1)
 
                 if not s_parameter or not value:
-                    print("no value or parameter")
+                    # print("no value or parameter")
                     continue
 
                 if '.' in value:
@@ -173,7 +173,7 @@ class HBNBCommand(cmd.Cmd):
                     continue
 
             except Exception as mess:
-                print(mess)
+                # print(mess)
                 continue
         new_instance.save()
         storage.save()
