@@ -137,8 +137,11 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
+        """
         modified_args = self.replace_spaces_within_quotes(args)
         content = shlex.split(modified_args, posix=False)
+        """
+        content = args.split()
 
         if content[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
@@ -146,40 +149,35 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[content[0]]()
 
         for parameter in content[1:]:
+            s_parameter, value = parameter.split('=', 1)
+            if not s_parameter or not value:
+                # print("no value or parameter")
+                continue
+            if (value.startswith('"') and value.endswith('"')):
+                value = value[1:-1].replace("_", " ").replace('\\"', '"')
+                setattr(new_instance, s_parameter, value)
+
             try:
-
-                s_parameter, value = parameter.split('=', 1)
-
-                if not s_parameter or not value:
-                    # print("no value or parameter")
-                    continue
-
                 if '.' in value:
-                    setattr(new_instance, s_parameter, float(value))
-
-                elif value.isdigit():
-                    setattr(new_instance, s_parameter, int(value))
-
-                elif (value.startswith('"') and value.endswith('"')):
-                    value = value[1:-1].replace("_", " ").replace('\\"', '"')
-                    """
+                    value = float(value)
+                    setattr(new_instance, s_parameter, value)
+                else:
+                    value = int(value)
+                    setattr(new_instance, s_parameter, value)
+            except ValueError:
+                pass
+            # if (value.startswith('"') and value.endswith('"')):
+            # value = value[1:-1].replace("_", " ").replace('\\"', '"')
+            """
                     if '"' in str_content:
                         pat = re.compile(r'(?<!\\)\\\"')
                         if not (pat.findall(str_content)):
                             continue
-                    """
-                    """
                     str_content = str_content.replace('\\"', '"')
                     setattr(new_instance, s_parameter,
                             str_content.replace("_", " "))
-                    """
-                    setattr(new_instance, s_parameter, str_content)
-                else:
-                    continue
-
-            except Exception as mess:
-                # print(mess)
-                continue
+            """
+            #  setattr(new_instance, s_parameter, value)
         new_instance.save()
         storage.save()
         print(new_instance.id)
