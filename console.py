@@ -161,14 +161,19 @@ class HBNBCommand(cmd.Cmd):
                     setattr(new_instance, s_parameter, int(value))
 
                 elif (value.startswith('"') and value.endswith('"')):
-                    str_content = value[1:-1]
+                    value = value[1:-1].replace("_", " ").replace('\\"', '"')
+                    """
                     if '"' in str_content:
                         pat = re.compile(r'(?<!\\)\\\"')
                         if not (pat.findall(str_content)):
                             continue
+                    """
+                    """
                     str_content = str_content.replace('\\"', '"')
                     setattr(new_instance, s_parameter,
                             str_content.replace("_", " "))
+                    """
+                    setattr(new_instance, s_parameter, str_content)
                 else:
                     continue
 
