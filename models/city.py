@@ -33,22 +33,3 @@ else:
 if getenv("HBNB_TYPE_STORAGE") == "db":
     State.cities = relationship("City", order_by=City.id,
                                 back_populates="state")
-
-"""
-class City(BaseModel, Base):
-    This is the class for City
-    Attributes:
-        state_id: The state id
-        name: input name
-        #
-    __tablename__ = "cities"
-    name = Column(String(128), nullable=False)
-    state_id = Column(String(60), ForeignKey('states.id'))
-    if getenv("HBNB_TYPE_STORAGE") == "db":
-        state = relationship("State", back_populates="cities")
-
-
-if getenv("HBNB_TYPE_STORAGE") == "db":
-    State.cities = relationship("City", order_by=City.id,
-                                back_populates="state")
-"""

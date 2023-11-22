@@ -21,7 +21,7 @@ db_user = os.environ.get("HBNB_MYSQL_USER")
 db_password = os.environ.get("HBNB_MYSQL_PWD")
 db_host = os.environ.get("HBNB_MYSQL_HOST")
 db_name = os.environ.get("HBNB_MYSQL_DB")
-env = os.environ.get("HBNB_ENV")
+# env = os.environ.get("HBNB_ENV")
 test_env = os.getenv("HBNB_ENV") == 'test'
 port = 3306
 

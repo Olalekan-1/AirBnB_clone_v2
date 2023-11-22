@@ -12,7 +12,6 @@ from sqlalchemy.orm import relationship
 db = os.getenv("HBNB_TYPE_STORAGE") == 'db'
 
 if db:
-    # from models.city import City
 
     class State(BaseModel, Base):
         """ State class """
