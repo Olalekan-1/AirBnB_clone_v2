@@ -141,18 +141,34 @@ class HBNBCommand(cmd.Cmd):
         modified_args = self.replace_spaces_within_quotes(args)
         content = shlex.split(modified_args, posix=False)
         """
-        content = args.split()
+        if '=' in args:
+            content = args.split(' ', 1)
+
+        lin_args = content[1]
 
         if content[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[content[0]]()
 
-        for parameter in content[1:]:
-            s_parameter, value = parameter.split('=', 1)
-            if not s_parameter or not value:
-                # print("no value or parameter")
-                continue
+        line_content =lin_args.split(" ")
+
+        for parameter in line_content[:]:
+
+            try:
+                s_parameter, value = parameter.split('=', 1)
+                # if not s_parameter or not value:
+                    # print("no value or parameter")
+                  #  continue
+                if type(eval(value)) is str:
+                    setattr(new_instance, s_parameter,
+                            value.replace("_", " ").replace('\\"', '"'))
+                else:
+                    setattr(new_instance, s_parameter, eval(value))
+            except Exception:
+                pass
+
+            """
             if (value.startswith('"') and value.endswith('"')):
                 value = value[1:-1].replace("_", " ").replace('\\"', '"')
                 setattr(new_instance, s_parameter, value)
@@ -166,6 +182,7 @@ class HBNBCommand(cmd.Cmd):
                     setattr(new_instance, s_parameter, value)
             except ValueError:
                 pass
+            """
             # if (value.startswith('"') and value.endswith('"')):
             # value = value[1:-1].replace("_", " ").replace('\\"', '"')
             """
