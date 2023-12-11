@@ -8,7 +8,7 @@ from datetime import datetime
 import os
 from os.path import exists
 
-env.hosts = ['54.82.199.141']
+env.hosts = ['54.237.66.181', '54.82.199.141']
 env.user = 'ubuntu'
 env.key_filename = '~/.ssh/school'
 
@@ -35,7 +35,7 @@ def do_pack():
 
 def do_deploy(archive_path):
     """Deploys the archive file to the web server"""
-    # archive_path = do_pack()
+    archive_path = do_pack()
     if not archive_path:
         return False
 
