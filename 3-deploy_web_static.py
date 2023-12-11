@@ -33,7 +33,7 @@ def do_pack():
         return None
 
 
-def do_deploy(archive_path):
+def deploy(archive_path):
     """Deploys the archive file to the web server"""
     archive_path = do_pack()
     if not archive_path:
