@@ -6,6 +6,7 @@
 from fabric.api import *
 from datetime import datetime
 import os
+from collections.abc import Mapping
 
 
 def do_pack():
