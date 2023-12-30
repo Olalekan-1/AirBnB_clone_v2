@@ -26,7 +26,8 @@ test_env = os.getenv("HBNB_ENV") == 'test'
 port = 3306
 
 
-# classes_to_query = dict(User=User, State=State, City=City, Amenity=Amenity, Place=Place, Review=Review)
+# classes_to_query = dict(User=User, State=State, City=City,
+# Amenity=Amenity, Place=Place, Review=Review)
 
 class DBStorage:
     """ The data base class to handle the management
@@ -51,8 +52,7 @@ class DBStorage:
         engine = create_engine(
                 "mysql+mysqldb://{}:{}@{}:{}/{}".format(
                     db_user, db_password, db_host, port, db_name,
-                pool_pre_ping=True))
-
+                    pool_pre_ping=True))
         if test_env:
             db = engine.cursor()
             session = scoped_session(
